@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "702909040912",
+    "project_id": "mituxtlaandroid",
+    "storage_bucket": "mituxtlaandroid.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702909040912:android:941480c5b337a20a6dfd95",
+        "android_client_info": {
+          "package_name": "com.example.mituxtla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_e20r3Kq3uQYIfDqF2smHqC5loZohC18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
