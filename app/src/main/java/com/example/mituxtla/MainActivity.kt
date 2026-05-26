@@ -76,12 +76,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -259,9 +265,9 @@ fun SplashScreen(
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF0F2027),
-                        Color(0xFF203A43),
-                        Color(0xFF2C5364)
+                        Color(0xFF0D1421),
+                        Color(0xFF1A237E),
+                        Color(0xFF1565C0)
                     )
                 )
             ),
@@ -309,11 +315,14 @@ fun SplashScreen(
 fun BottomNavigationBar(
     navController: NavHostController
 ) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     NavigationBar(
         containerColor = Color.White
     ) {
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute?.startsWith("home") == true,
             onClick = {
                 navController.navigate("home/false")
             },
@@ -326,7 +335,7 @@ fun BottomNavigationBar(
         )
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == "favorites",
             onClick = {
                 navController.navigate("favorites")
             },
@@ -339,7 +348,7 @@ fun BottomNavigationBar(
         )
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == "map",
             onClick = {
                 navController.navigate("map")
             },
@@ -352,7 +361,7 @@ fun BottomNavigationBar(
         )
 
         NavigationBarItem(
-            selected = false,
+            selected = currentRoute == "profile",
             onClick = {
                 navController.navigate("profile")
             },
@@ -381,9 +390,9 @@ fun LoginScreen(navController: NavHostController) {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF0F2027),
-                        Color(0xFF203A43),
-                        Color(0xFF2C5364)
+                        Color(0xFF0D1421),
+                        Color(0xFF1A237E),
+                        Color(0xFF1565C0)
                     )
                 )
             )
@@ -593,9 +602,9 @@ fun RegisterScreen(navController: NavHostController) {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF0F2027),
-                        Color(0xFF203A43),
-                        Color(0xFF2C5364)
+                        Color(0xFF0D1421),
+                        Color(0xFF1A237E),
+                        Color(0xFF1565C0)
                     )
                 )
             )
@@ -950,9 +959,13 @@ fun HomeScreen(
                                     Text(categoria)
                                 }
                             } else {
-                                OutlinedButton(
+                                Button(
                                     onClick = { categoriaSeleccionada = categoria },
-                                    shape = RoundedCornerShape(30.dp)
+                                    shape = RoundedCornerShape(30.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFFE3F2FD),
+                                        contentColor = azulPrincipal
+                                    )
                                 ) {
                                     Text(categoria)
                                 }
@@ -1096,7 +1109,8 @@ fun HomeScreen(
                                 model = evento.imagen,
                                 contentDescription = evento.titulo,
                                 modifier = Modifier
-                                    .size(90.dp),
+                                    .size(90.dp)
+                                    .clip(RoundedCornerShape(12.dp)),
                                 contentScale = ContentScale.Crop
                             )
 
@@ -1172,17 +1186,20 @@ fun DetailScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(lugar?.nombre ?: "Detalle del lugar")
+                    Text(lugar?.nombre ?: "Detalle del lugar", color = Color.White)
                 },
                 navigationIcon = {
-                    TextButton(
-                        onClick = {
-                            navController.popBackStack()
-                        }
-                    ) {
-                        Text("Atrás")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = "Regresar",
+                            tint = Color.White
+                        )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF1565C0)
+                )
             )
         }
     ) { padding ->
@@ -1412,8 +1429,20 @@ fun EventDetailScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Detalle del evento")
-                }
+                    Text("Detalle del evento", color = Color.White)
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = "Regresar",
+                            tint = Color.White
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF1565C0)
+                )
             )
         }
     ) { padding ->
@@ -1553,17 +1582,20 @@ fun FavoritesScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Mis favoritos")
+                    Text("Mis favoritos", color = Color.White)
                 },
                 navigationIcon = {
-                    TextButton(
-                        onClick = {
-                            navController.popBackStack()
-                        }
-                    ) {
-                        Text("Atrás")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = "Regresar",
+                            tint = Color.White
+                        )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF1565C0)
+                )
             )
         },
         bottomBar = {
@@ -1601,7 +1633,21 @@ fun FavoritesScreen(
                         .padding(padding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Aún no tienes lugares favoritos")
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("⭐", fontSize = 64.sp)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "Aún no tienes favoritos",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Explora lugares y agrégalos aquí",
+                            fontSize = 14.sp,
+                            color = Color.Gray
+                        )
+                    }
                 }
             }
 
@@ -1721,8 +1767,11 @@ fun ProfileScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Perfil")
-                }
+                    Text("Perfil", color = Color.White)
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF1565C0)
+                )
             )
         },
         bottomBar = {
@@ -1751,10 +1800,21 @@ fun ProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    Text(
-                        text = "👤",
-                        fontSize = 64.sp
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(90.dp)
+                            .background(Color(0xFF1565C0), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = (user?.displayName?.take(1)?.uppercase()
+                                ?: user?.email?.take(1)?.uppercase()
+                                ?: "U"),
+                            color = Color.White,
+                            fontSize = 36.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
