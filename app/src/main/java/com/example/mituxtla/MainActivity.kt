@@ -56,6 +56,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -78,6 +79,7 @@ import kotlinx.coroutines.delay
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Map
@@ -264,11 +266,10 @@ fun SplashScreen(
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF0D1421),
-                        Color(0xFF1A237E),
-                        Color(0xFF1565C0)
-                    )
+                    0.0f to Color(0xFF050D24),
+                    0.35f to Color(0xFF0D1F6E),
+                    0.70f to Color(0xFF1565C0),
+                    1.0f to Color(0xFF1E88E5)
                 )
             ),
         contentAlignment = Alignment.Center
@@ -280,15 +281,18 @@ fun SplashScreen(
             Image(
                 painter = painterResource(id = R.drawable.logo_mituxtla),
                 contentDescription = "Logo Mi Tuxtla",
-                modifier = Modifier.size(220.dp)
+                modifier = Modifier
+                    .size(220.dp)
+                    .clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Mi Tuxtla",
-                fontSize = 38.sp,
+                fontSize = 42.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
                 color = Color.White
             )
 
@@ -297,7 +301,8 @@ fun SplashScreen(
             Text(
                 text = "Descubre • Conoce • Vive",
                 fontSize = 16.sp,
-                color = Color.LightGray
+                fontFamily = FontFamily.Serif,
+                color = Color.White.copy(alpha = 0.85f)
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -389,11 +394,10 @@ fun LoginScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF0D1421),
-                        Color(0xFF1A237E),
-                        Color(0xFF1565C0)
-                    )
+                    0.0f to Color(0xFF050D24),
+                    0.35f to Color(0xFF0D1F6E),
+                    0.70f to Color(0xFF1565C0),
+                    1.0f to Color(0xFF1E88E5)
                 )
             )
     ) {
@@ -408,8 +412,9 @@ fun LoginScreen(navController: NavHostController) {
 
             Text(
                 "Mi Tuxtla",
-                fontSize = 40.sp,
+                fontSize = 44.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
                 color = Color.White
             )
 
@@ -417,8 +422,9 @@ fun LoginScreen(navController: NavHostController) {
 
             Text(
                 "Guía Turística de Tuxtla Gtz",
-                color = Color.LightGray,
-                fontSize = 18.sp
+                color = Color.White.copy(alpha = 0.85f),
+                fontSize = 16.sp,
+                fontFamily = FontFamily.Serif
             )
 
             Spacer(modifier = Modifier.height(40.dp))
@@ -447,7 +453,16 @@ fun LoginScreen(navController: NavHostController) {
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("Correo electrónico") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -457,7 +472,16 @@ fun LoginScreen(navController: NavHostController) {
                         onValueChange = { password = it },
                         label = { Text("Contraseña") },
                         visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -520,9 +544,13 @@ fun LoginScreen(navController: NavHostController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(55.dp),
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF1565C0),
+                            contentColor = Color.White
+                        )
                     ) {
-                        Text("Entrar")
+                        Text("Entrar", fontWeight = FontWeight.Bold)
                     }
 
                     TextButton(
@@ -564,9 +592,12 @@ fun LoginScreen(navController: NavHostController) {
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(55.dp)
+                            .height(55.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Color(0xFF1565C0)
+                        )
                     ) {
-                        Text("Continuar como visitante")
+                        Text("Continuar como visitante", fontWeight = FontWeight.Medium)
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -601,11 +632,10 @@ fun RegisterScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF0D1421),
-                        Color(0xFF1A237E),
-                        Color(0xFF1565C0)
-                    )
+                    0.0f to Color(0xFF050D24),
+                    0.35f to Color(0xFF0D1F6E),
+                    0.70f to Color(0xFF1565C0),
+                    1.0f to Color(0xFF1E88E5)
                 )
             )
     ) {
@@ -620,8 +650,9 @@ fun RegisterScreen(navController: NavHostController) {
 
             Text(
                 "Mi Tuxtla",
-                fontSize = 38.sp,
+                fontSize = 42.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
                 color = Color.White
             )
 
@@ -648,7 +679,16 @@ fun RegisterScreen(navController: NavHostController) {
                         value = nombre,
                         onValueChange = { nombre = it },
                         label = { Text("Nombre completo") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -657,7 +697,16 @@ fun RegisterScreen(navController: NavHostController) {
                         value = correo,
                         onValueChange = { correo = it },
                         label = { Text("Correo electrónico") },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -667,7 +716,16 @@ fun RegisterScreen(navController: NavHostController) {
                         onValueChange = { password = it },
                         label = { Text("Contraseña") },
                         visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -677,7 +735,16 @@ fun RegisterScreen(navController: NavHostController) {
                         onValueChange = { confirmPassword = it },
                         label = { Text("Confirmar contraseña") },
                         visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color(0xFF1A1A1A),
+                            unfocusedTextColor = Color(0xFF1A1A1A),
+                            focusedLabelColor = Color(0xFF1565C0),
+                            unfocusedLabelColor = Color(0xFF546E7A),
+                            focusedBorderColor = Color(0xFF1565C0),
+                            unfocusedBorderColor = Color(0xFF90A4AE),
+                            cursorColor = Color(0xFF1565C0)
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -744,9 +811,16 @@ fun RegisterScreen(navController: NavHostController) {
                                     }
                                 }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(55.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF1565C0),
+                            contentColor = Color.White
+                        )
                     ) {
-                        Text("Crear cuenta")
+                        Text("Crear cuenta", fontWeight = FontWeight.Bold)
                     }
 
                     TextButton(
@@ -876,9 +950,12 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .clip(RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp))
                             .background(
                                 Brush.verticalGradient(
-                                    colors = listOf(azulPrincipal, azulOscuro)
+                                    0.0f to Color(0xFF1976D2),
+                                    0.5f to Color(0xFF1565C0),
+                                    1.0f to Color(0xFF0A3080)
                                 )
                             )
                             .padding(24.dp)
@@ -902,7 +979,8 @@ fun HomeScreen(
                                         color = Color.White,
                                         fontSize = 36.sp,
                                         fontWeight = FontWeight.Bold,
-                                        lineHeight = 38.sp
+                                        fontFamily = FontFamily.Serif,
+                                        lineHeight = 40.sp
                                     )
 
                                     Text(
@@ -915,7 +993,9 @@ fun HomeScreen(
                                 Image(
                                     painter = painterResource(id = R.drawable.logo_mituxtla),
                                     contentDescription = "Logo Mi Tuxtla",
-                                    modifier = Modifier.size(86.dp)
+                                    modifier = Modifier
+                                        .size(86.dp)
+                                        .clip(CircleShape)
                                 )
                             }
 
@@ -924,7 +1004,19 @@ fun HomeScreen(
                             OutlinedTextField(
                                 value = searchText,
                                 onValueChange = { searchText = it },
-                                placeholder = { Text("Buscar lugares, rutas...") },
+                                placeholder = {
+                                    Text(
+                                        "Buscar lugares, rutas...",
+                                        color = Color(0xFF90A4AE)
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Filled.Search,
+                                        contentDescription = "Buscar",
+                                        tint = Color(0xFF546E7A)
+                                    )
+                                },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .background(Color.White, RoundedCornerShape(30.dp)),
@@ -934,7 +1026,10 @@ fun HomeScreen(
                                     focusedBorderColor = Color.Transparent,
                                     unfocusedBorderColor = Color.Transparent,
                                     focusedContainerColor = Color.White,
-                                    unfocusedContainerColor = Color.White
+                                    unfocusedContainerColor = Color.White,
+                                    focusedTextColor = Color(0xFF1A1A1A),
+                                    unfocusedTextColor = Color(0xFF1A1A1A),
+                                    cursorColor = Color(0xFF1565C0)
                                 )
                             )
                         }
@@ -979,6 +1074,7 @@ fun HomeScreen(
                         text = "Destacados",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1A1A1A),
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
@@ -1033,6 +1129,7 @@ fun HomeScreen(
                                                 text = lugar.nombre,
                                                 fontSize = 20.sp,
                                                 fontWeight = FontWeight.Bold,
+                                                color = Color(0xFF1A1A1A),
                                                 maxLines = 2
                                             )
 
@@ -1077,6 +1174,7 @@ fun HomeScreen(
                         text = "🔔 Próximos eventos",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1A1A1A),
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
@@ -1123,7 +1221,8 @@ fun HomeScreen(
                                 Text(
                                     text = evento.titulo,
                                     fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF1A1A1A)
                                 )
 
                                 Spacer(modifier = Modifier.height(4.dp))
@@ -1252,15 +1351,16 @@ fun DetailScreen(
                             Text(
                                 text = lugarActual.nombre,
                                 fontSize = 30.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF1A1A1A)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.categoria,
-                                color = Color(0xFF2C5364),
-                                fontSize = 18.sp,
+                                color = Color(0xFF1565C0),
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold
                             )
 
@@ -1269,14 +1369,16 @@ fun DetailScreen(
                             Text(
                                 text = "Descripción",
                                 fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF1A1A1A)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.descripcion,
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                color = Color(0xFF333333)
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -1284,14 +1386,16 @@ fun DetailScreen(
                             Text(
                                 text = "Dirección",
                                 fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF1A1A1A)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.direccion,
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                color = Color(0xFF333333)
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -1299,14 +1403,16 @@ fun DetailScreen(
                             Text(
                                 text = "Horario",
                                 fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF1A1A1A)
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.horario,
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                color = Color(0xFF333333)
                             )
 
                             Spacer(modifier = Modifier.height(30.dp))
@@ -1491,7 +1597,8 @@ fun EventDetailScreen(
                         Text(
                             text = evento!!.titulo,
                             fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1A1A1A)
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -1506,7 +1613,8 @@ fun EventDetailScreen(
 
                         Text(
                             text = "📅 ${evento!!.fecha}",
-                            fontSize = 16.sp
+                            fontSize = 16.sp,
+                            color = Color(0xFF333333)
                         )
 
                         Spacer(modifier = Modifier.height(20.dp))
@@ -1514,14 +1622,16 @@ fun EventDetailScreen(
                         Text(
                             text = "Descripción",
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1A1A1A)
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
                             text = evento!!.descripcion,
-                            fontSize = 16.sp
+                            fontSize = 16.sp,
+                            color = Color(0xFF333333)
                         )
                     }
                 }
