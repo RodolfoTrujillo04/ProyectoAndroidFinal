@@ -89,6 +89,10 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
@@ -1364,7 +1368,11 @@ fun DetailScreen(
                                 fontWeight = FontWeight.SemiBold
                             )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            HorizontalDivider(color = Color(0xFFE0E0E0), thickness = 1.dp)
+
+                            Spacer(modifier = Modifier.height(16.dp))
 
                             Text(
                                 text = "Descripción",
@@ -1384,40 +1392,70 @@ fun DetailScreen(
                                 lineHeight = 24.sp
                             )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
-                            Text(
-                                text = "Dirección",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF1A1A1A)
-                            )
+                            HorizontalDivider(color = Color(0xFFE0E0E0), thickness = 1.dp)
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.LocationOn,
+                                    contentDescription = null,
+                                    tint = Color(0xFFD32F2F),
+                                    modifier = Modifier.size(22.dp)
+                                )
+                                Text(
+                                    text = "Dirección",
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF1A1A1A)
+                                )
+                            }
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.direccion,
                                 fontSize = 16.sp,
-                                color = Color(0xFF444444),
-                                fontFamily = FontFamily.Serif
+                                color = Color(0xFF555555),
+                                lineHeight = 22.sp
                             )
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
 
-                            Text(
-                                text = "Horario",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF1A1A1A)
-                            )
+                            HorizontalDivider(color = Color(0xFFE0E0E0), thickness = 1.dp)
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Schedule,
+                                    contentDescription = null,
+                                    tint = Color(0xFF1565C0),
+                                    modifier = Modifier.size(22.dp)
+                                )
+                                Text(
+                                    text = "Horario",
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF1A1A1A)
+                                )
+                            }
 
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
                                 text = lugarActual.horario,
                                 fontSize = 16.sp,
-                                color = Color(0xFF444444),
-                                fontFamily = FontFamily.Serif
+                                color = Color(0xFF555555),
+                                lineHeight = 22.sp
                             )
 
                             Spacer(modifier = Modifier.height(30.dp))
@@ -1492,7 +1530,14 @@ fun DetailScreen(
                                 },
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text("📍 Cómo llegar")
+                                Icon(
+                                    imageVector = Icons.Filled.LocationOn,
+                                    contentDescription = null,
+                                    tint = Color(0xFFD32F2F),
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Cómo llegar")
                             }
 
                             Spacer(modifier = Modifier.height(30.dp))
@@ -1614,19 +1659,42 @@ fun EventDetailScreen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        Text(
-                            text = "📍 ${evento!!.lugar}",
-                            fontSize = 18.sp,
-                            color = Color(0xFF1565C0)
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.LocationOn,
+                                contentDescription = null,
+                                tint = Color(0xFFD32F2F),
+                                modifier = Modifier.size(22.dp)
+                            )
+                            Text(
+                                text = evento!!.lugar,
+                                fontSize = 18.sp,
+                                color = Color(0xFF1565C0),
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        Text(
-                            text = "📅 ${evento!!.fecha}",
-                            fontSize = 16.sp,
-                            color = Color(0xFF333333)
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.CalendarToday,
+                                contentDescription = null,
+                                tint = Color(0xFF1A1A1A),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = evento!!.fecha,
+                                fontSize = 16.sp,
+                                color = Color(0xFF333333)
+                            )
+                        }
 
                         Spacer(modifier = Modifier.height(20.dp))
 
@@ -1642,7 +1710,10 @@ fun EventDetailScreen(
                         Text(
                             text = evento!!.descripcion,
                             fontSize = 16.sp,
-                            color = Color(0xFF333333)
+                            color = Color(0xFF444444),
+                            fontFamily = FontFamily.Serif,
+                            fontStyle = FontStyle.Italic,
+                            lineHeight = 24.sp
                         )
                     }
                 }
@@ -2057,12 +2128,13 @@ fun ProfileScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = (user?.displayName?.take(1)?.uppercase()
-                            ?: user?.email?.take(1)?.uppercase()
+                        text = (user?.displayName?.firstOrNull { it.isLetter() }?.uppercaseChar()?.toString()
+                            ?: user?.email?.firstOrNull { it.isLetter() }?.uppercaseChar()?.toString()
                             ?: "U"),
                         color = Color.White,
                         fontSize = 34.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.SansSerif
                     )
                 }
             }
@@ -2321,9 +2393,17 @@ fun MapScreen(navController: NavHostController) {
                 }
             }
 
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .clip(RectangleShape)
+            ) {
             if (loadingPlaces) {
                 LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter),
                     color = azulPrincipal
                 )
             }
@@ -2369,6 +2449,7 @@ fun MapScreen(navController: NavHostController) {
                     mapView.invalidate()
                 }
             )
+            }
         }
     }
 }
