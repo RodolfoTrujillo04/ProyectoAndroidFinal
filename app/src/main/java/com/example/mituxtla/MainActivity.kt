@@ -36,6 +36,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.foundation.border
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -84,6 +87,8 @@ import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
@@ -139,7 +144,7 @@ class MainActivity : ComponentActivity() {
         revisarEventosYNotificar(this)
 
         setContent {
-            MiTuxtlaTheme {
+            MiTuxtlaTheme(darkTheme = false) {
                 AppNavigation()
             }
         }
@@ -323,59 +328,48 @@ fun BottomNavigationBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val navColors = NavigationBarItemDefaults.colors(
+        selectedIconColor = Color(0xFF1565C0),
+        selectedTextColor = Color(0xFF1565C0),
+        indicatorColor = Color(0xFFE3F2FD),
+        unselectedIconColor = Color(0xFF607D8B),
+        unselectedTextColor = Color(0xFF607D8B)
+    )
+
     NavigationBar(
-        containerColor = Color.White
+        containerColor = Color.White,
+        tonalElevation = 0.dp
     ) {
         NavigationBarItem(
             selected = currentRoute?.startsWith("home") == true,
-            onClick = {
-                navController.navigate("home/false")
-            },
-            icon = {
-                Icon(Icons.Filled.Home, contentDescription = "Inicio")
-            },
-            label = {
-                Text("Inicio")
-            }
+            onClick = { navController.navigate("home/false") },
+            icon = { Icon(Icons.Filled.Explore, contentDescription = "Explorar") },
+            label = { Text("Explorar") },
+            colors = navColors
         )
 
         NavigationBarItem(
             selected = currentRoute == "favorites",
-            onClick = {
-                navController.navigate("favorites")
-            },
-            icon = {
-                Icon(Icons.Filled.Favorite, contentDescription = "Favoritos")
-            },
-            label = {
-                Text("Favoritos")
-            }
+            onClick = { navController.navigate("favorites") },
+            icon = { Icon(Icons.Filled.Favorite, contentDescription = "Favoritos") },
+            label = { Text("Favoritos") },
+            colors = navColors
         )
 
         NavigationBarItem(
             selected = currentRoute == "map",
-            onClick = {
-                navController.navigate("map")
-            },
-            icon = {
-                Icon(Icons.Filled.Map, contentDescription = "Mapa")
-            },
-            label = {
-                Text("Mapa")
-            }
+            onClick = { navController.navigate("map") },
+            icon = { Icon(Icons.Filled.Map, contentDescription = "Mapa") },
+            label = { Text("Mapa") },
+            colors = navColors
         )
 
         NavigationBarItem(
             selected = currentRoute == "profile",
-            onClick = {
-                navController.navigate("profile")
-            },
-            icon = {
-                Icon(Icons.Filled.Person, contentDescription = "Perfil")
-            },
-            label = {
-                Text("Perfil")
-            }
+            onClick = { navController.navigate("profile") },
+            icon = { Icon(Icons.Filled.AccountCircle, contentDescription = "Perfil") },
+            label = { Text("Perfil") },
+            colors = navColors
         )
     }
 }
@@ -1296,8 +1290,14 @@ fun DetailScreen(
                         )
                     }
                 },
+                modifier = Modifier.background(
+                    Brush.horizontalGradient(
+                        listOf(Color(0xFF1976D2), Color(0xFF1565C0), Color(0xFF0A3080))
+                    )
+                ),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1565C0)
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent
                 )
             )
         }
@@ -1378,7 +1378,10 @@ fun DetailScreen(
                             Text(
                                 text = lugarActual.descripcion,
                                 fontSize = 16.sp,
-                                color = Color(0xFF333333)
+                                color = Color(0xFF444444),
+                                fontFamily = FontFamily.Serif,
+                                fontStyle = FontStyle.Italic,
+                                lineHeight = 24.sp
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -1395,7 +1398,8 @@ fun DetailScreen(
                             Text(
                                 text = lugarActual.direccion,
                                 fontSize = 16.sp,
-                                color = Color(0xFF333333)
+                                color = Color(0xFF444444),
+                                fontFamily = FontFamily.Serif
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -1412,7 +1416,8 @@ fun DetailScreen(
                             Text(
                                 text = lugarActual.horario,
                                 fontSize = 16.sp,
-                                color = Color(0xFF333333)
+                                color = Color(0xFF444444),
+                                fontFamily = FontFamily.Serif
                             )
 
                             Spacer(modifier = Modifier.height(30.dp))
@@ -1546,8 +1551,14 @@ fun EventDetailScreen(
                         )
                     }
                 },
+                modifier = Modifier.background(
+                    Brush.horizontalGradient(
+                        listOf(Color(0xFF1976D2), Color(0xFF1565C0), Color(0xFF0A3080))
+                    )
+                ),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1565C0)
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent
                 )
             )
         }
@@ -1703,8 +1714,14 @@ fun FavoritesScreen(
                         )
                     }
                 },
+                modifier = Modifier.background(
+                    Brush.horizontalGradient(
+                        listOf(Color(0xFF1976D2), Color(0xFF1565C0), Color(0xFF0A3080))
+                    )
+                ),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1565C0)
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent
                 )
             )
         },
@@ -1740,22 +1757,25 @@ fun FavoritesScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(padding),
+                        .padding(padding)
+                        .background(Color(0xFFF3F7FB)),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("⭐", fontSize = 64.sp)
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Text("⭐", fontSize = 72.sp)
+                        Spacer(modifier = Modifier.height(20.dp))
                         Text(
                             text = "Aún no tienes favoritos",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1A1A1A)
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(10.dp))
                         Text(
                             text = "Explora lugares y agrégalos aquí",
-                            fontSize = 14.sp,
-                            color = Color.Gray
+                            fontSize = 15.sp,
+                            color = Color(0xFF607D8B),
+                            fontFamily = FontFamily.Serif
                         )
                     }
                 }
@@ -1879,8 +1899,14 @@ fun ProfileScreen(
                 title = {
                     Text("Perfil", color = Color.White)
                 },
+                modifier = Modifier.background(
+                    Brush.horizontalGradient(
+                        listOf(Color(0xFF1976D2), Color(0xFF1565C0), Color(0xFF0A3080))
+                    )
+                ),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1565C0)
+                    containerColor = Color.Transparent,
+                    scrolledContainerColor = Color.Transparent
                 )
             )
         },
@@ -1893,78 +1919,75 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(Color(0xFFF5F5F5)),
-            contentAlignment = Alignment.Center
+                .background(Color(0xFFF3F7FB))
         ) {
-
-            Card(
+            // Franja decorativa azul en la parte superior
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(24.dp),
-                shape = RoundedCornerShape(24.dp),
-                elevation = CardDefaults.cardElevation(8.dp)
+                    .height(130.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(Color(0xFF1976D2), Color(0xFF1565C0), Color(0xFF0A3080))
+                        )
+                    )
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Spacer(modifier = Modifier.height(80.dp))
 
-                Column(
-                    modifier = Modifier.padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(12.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
                 ) {
-
-                    Box(
-                        modifier = Modifier
-                            .size(90.dp)
-                            .background(Color(0xFF1565C0), CircleShape),
-                        contentAlignment = Alignment.Center
+                    Column(
+                        modifier = Modifier.padding(
+                            top = 56.dp, start = 24.dp, end = 24.dp, bottom = 24.dp
+                        ),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = (user?.displayName?.take(1)?.uppercase()
-                                ?: user?.email?.take(1)?.uppercase()
-                                ?: "U"),
-                            color = Color.White,
-                            fontSize = 36.sp,
-                            fontWeight = FontWeight.Bold
+                            text = user?.displayName ?: user?.email?.substringBefore("@") ?: "Usuario",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1A1A1A)
                         )
-                    }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(6.dp))
 
-                    Text(
-                        text = user?.displayName ?: "Usuario",
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                        Text(
+                            text = user?.email ?: "Sin correo",
+                            fontSize = 14.sp,
+                            color = Color(0xFF607D8B)
+                        )
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(6.dp))
 
-                    Text(
-                        text = "Correo:",
-                        fontWeight = FontWeight.Bold
-                    )
+                        Box(
+                            modifier = Modifier
+                                .background(Color(0xFFE3F2FD), RoundedCornerShape(30.dp))
+                                .padding(horizontal = 14.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = "✓ Usuario registrado",
+                                fontSize = 13.sp,
+                                color = Color(0xFF1565C0),
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
 
-                    Text(
-                        text = user?.email ?: "Sin correo",
-                        fontSize = 16.sp,
-                        color = Color.Gray
-                    )
+                        Spacer(modifier = Modifier.height(28.dp))
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = "Tipo de usuario:",
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text(
-                        text = "Usuario registrado",
-                        fontSize = 16.sp,
-                        color = Color(0xFF2C5364)
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    OutlinedButton(
-                        onClick = {
-                            val email = user?.email
+                        OutlinedButton(
+                            onClick = {
+                                val email = user?.email
 
                             if (email.isNullOrBlank()) {
                                 Toast.makeText(
@@ -1990,9 +2013,12 @@ fun ProfileScreen(
                                     }
                             }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Color(0xFF1565C0)
+                        )
                     ) {
-                        Text("Cambiar contraseña")
+                        Text("Cambiar contraseña", fontWeight = FontWeight.Medium)
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -2000,15 +2026,44 @@ fun ProfileScreen(
                     Button(
                         onClick = {
                             auth.signOut()
-
-                            navController.navigate("login") {
-                                popUpTo(0)
-                            }
+                            navController.navigate("login") { popUpTo(0) }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFB3261E),
+                            contentColor = Color.White
+                        )
                     ) {
-                        Text("Cerrar sesión")
+                        Text("Cerrar sesión", fontWeight = FontWeight.Bold)
                     }
+                }
+            }
+            }
+
+            // Avatar flotante sobre la franja azul y la card
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 34.dp)
+                    .size(94.dp)
+                    .background(Color.White, CircleShape)
+                    .border(3.dp, Color.White, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(86.dp)
+                        .background(Color(0xFF1565C0), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = (user?.displayName?.take(1)?.uppercase()
+                            ?: user?.email?.take(1)?.uppercase()
+                            ?: "U"),
+                        color = Color.White,
+                        fontSize = 34.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
